@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
 
-const initialState = {
-    title: '',
-    director: '',
-    metascore: '',
-    stars: '',
-}
 
 const UpdateForm = (props) => {
+    const initialState = {
+        id: `${props.match.params.id}`,
+        title: '',
+        director: '',
+        metascore: '',
+        stars: '',
+    }
+
     const [movie, setMovie] = useState(initialState);
 
     // descrtucture props
-    const { match, savedList, } = props;
+    const { match, savedList } = props;
+    console.log(movie)
 
     useEffect(() => {
         const id = match.params.id;
-        const movieToUpdate = savedList.find(movie => `${movie.id}` === id);
+        const movieToUpdate = movie.id === id
         if(movieToUpdate){
             console.log(movieToUpdate)
             setMovie(movieToUpdate)
         }
-    }, [match, savedList])
+    }, [match, savedList, movie.id])
 
     const handleChange = e => {
         e.persist();
@@ -36,11 +40,11 @@ const UpdateForm = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+        axios.put(`http://localhost:5000/api/movies/${match.params.id}`, movie)
         .then(res => {
             console.log(res.data)
-            props.setSavedList(res.data)
-            props.history.push(`/movies`)
+            props.SavedList(res.data)
+            props.history.push(`/item-list/${props.match.params.id}`)
             setMovie(initialState)
         })
         .catch(err => console.log(err))
@@ -85,4 +89,4 @@ const UpdateForm = (props) => {
     )
 }
 
-export default UpdateForm;
+export default withRouter(UpdateForm);

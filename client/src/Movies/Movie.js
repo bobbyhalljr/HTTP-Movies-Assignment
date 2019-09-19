@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { withRouter } from 'react-router-dom';
 import MovieCard from "./MovieCard";
 export default class Movie extends React.Component {
   constructor(props) {
@@ -50,3 +51,4 @@ export default class Movie extends React.Component {
     );
   }
 }
+

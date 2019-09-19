@@ -10,7 +10,6 @@ const App = () => {
 
   const addToSavedList = movie => {
     setSavedList([...savedList, movie]);
-    console.log(movie)
   };
 
   return (
@@ -25,7 +24,7 @@ const App = () => {
       />
       <Route 
         path='/update-movie/:id' 
-        render={props => <UpdateForm {...props} savedList={savedList} setSavedList={setSavedList}/>}
+        render={props => <UpdateForm {...props} savedList={savedList} addToSavedList={addToSavedList} />}
       />
     </>
   );
