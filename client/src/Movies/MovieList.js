@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Route, withRouter } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import UpdateForm from './UpdateForm';
+
+
 export default class MovieList extends Component {
   constructor(props) {
     super(props);
@@ -35,3 +38,4 @@ function MovieDetails({ movie }) {
     </Link>
   );
 }
+
